@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type Image}" x:Key="btnHand">
+
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    
+    <Style TargetType="Button" x:Key="btnNumKey">
+        <Setter Property="Background" Value="Black"></Setter>
+        <Setter Property="FontSize" Value="26"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Opacity" Value="0"/>
+    </Style>
+</ResourceDictionary>

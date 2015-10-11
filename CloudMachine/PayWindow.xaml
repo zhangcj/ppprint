@@ -1,0 +1,209 @@
+﻿<Window x:Class="CloudMachine.PayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PayWindow" Height="900" Width="1440" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized"
+        AllowsTransparency="True" Background="#00FFFFFF" Icon="xinzheku.ico"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/ImageStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid ShowGridLines="False" Background="White" x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="660*"/>
+            <RowDefinition Height="110*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.RowSpan="4" Grid.Row="0" Grid.Column="0" x:Name="imgBackground" Stretch="Fill"/>
+        <!--顶部右侧-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="930*"/>
+                <ColumnDefinition Width="170*"/>
+                <ColumnDefinition Width="180*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="txtMachineCode" FontSize="13" Grid.Column="1" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock x:Name="tbTime" FontSize="13" Grid.Column="2" Foreground="White"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        </Grid>
+
+        <!--图片预览 打印预览-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="300*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="820*"/>
+                <ColumnDefinition Width="370*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!---20,90-->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="90*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="90*"/>
+                    <RowDefinition Height="70*"/>
+                    <RowDefinition Height="90*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="90*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="5" x:Name="imgDoPrint" Stretch="Fill" VerticalAlignment="Bottom"/>
+
+                <!--backhome 两个按钮-->
+                <Grid Grid.Row="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="150*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Grid.ColumnSpan="2" x:Name="imgBtnChoice4" Stretch="Fill" VerticalAlignment="Bottom"/>
+
+                    <Button Grid.Column="0" x:Name="btnBack" VerticalAlignment="Center" HorizontalAlignment="Center" Height="90" Width="150" Opacity="0"/>
+                    <Button Grid.Column="1" x:Name="btnHome" VerticalAlignment="Center" HorizontalAlignment="Center" Height="90" Width="150" Opacity="0"/>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="390*"/>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="430*"/>
+                    <ColumnDefinition Width="40*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="imgViewFrame" Stretch="Fill" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                <Image Grid.Row="2" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="imgViewPrting" Stretch="Fill" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="480"/>
+                <Image Grid.Row="2" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="imgViewPrintFinish" Stretch="Fill" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="380"/>
+
+
+                <Image Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="imgViewFrame_back" Stretch="Fill" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                <DocumentViewer Visibility="Collapsed" Name="dvcontent" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                <Image Grid.Row="2" Grid.Column="1" x:Name="imgViewFrame_WithPreView" Stretch="Fill" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
+                <!--支付选择-->
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200*"/>
+                        <RowDefinition Height="70*"/>
+                        <RowDefinition Height="100*"/>
+                        <RowDefinition Height="190*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0" x:Name="imgPayScanTitle" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="260"/>
+
+                    <!--支付按钮-->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+
+                            <ColumnDefinition Width="250*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="250*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="250*"/>
+
+                            <ColumnDefinition Width="20*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="1"  x:Name="imgPayWeichat" x:Uid="weichat" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Image Grid.Column="3"  x:Name="imgPayAli" x:Uid="alipay" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Image Grid.Column="5"  x:Name="imgPayCard" x:Uid="card" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!--二维码-->
+            <Grid Grid.Column="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200*"/>
+                    <ColumnDefinition Width="170*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1" VerticalAlignment="Bottom">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="450*"/>
+                        <RowDefinition Height="170*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Column="1" x:Name="imgQrFram" HorizontalAlignment="Center" VerticalAlignment="Center" Height="170"/>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="110*"/>
+                            <RowDefinition Height="15*"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="1" x:Name="imgQr" HorizontalAlignment="Center" Height="110"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--序列码和扫码 end-->
+        </Grid>
+
+        <Image Grid.Row="3"  x:Name="imgProcess" Stretch="Fill"/>
+        <!--底部流程-->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="150*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" x:Name="imgProcess1" Height="70" Width="130" Stretch="Fill"/>
+            <Image Grid.Column="2" x:Name="imgGoto1" Height="25" Stretch="Fill"/>
+            <Image Grid.Column="4" x:Name="imgProcess2" Height="70" Width="130" Stretch="Fill"/>
+            <Image Grid.Column="6" x:Name="imgGoto2" Height="25" Stretch="Fill"/>
+            <Image Grid.Column="8" x:Name="imgProcess3" Height="70" Width="130" Stretch="Fill"/>
+            <Image Grid.Column="10" x:Name="imgGoto3" Height="25" Stretch="Fill"/>
+            <Image Grid.Column="12" x:Name="imgProcess4" Height="70" Width="130" Stretch="Fill"/>
+            <Image Grid.Column="14" x:Name="imgGoto4" Height="25" Stretch="Fill"/>
+            <Image Grid.Column="16" x:Name="imgProcess5" Height="70" Width="130" Stretch="Fill"/>
+            <Image Grid.Column="18" x:Name="imgGoto5" Height="25" Stretch="Fill"/>
+            <Image Grid.Column="20" x:Name="imgProcess6" Height="70" Width="130" Stretch="Fill"/>
+        </Grid>
+    </Grid>
+</Window>

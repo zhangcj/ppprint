@@ -164,11 +164,13 @@ namespace CloudMachine
                 }
                 else {
                     MessageBox.Show("未能正确获取文档地址");
+                    BackHoem();
                 }
             }
             catch (Exception ex)
             {
                 HttpAPIService.LiveReportAPI(HttpUtility.UrlEncode("文档预览错误"),"0");
+                BackHoem();
             }
         }
 
@@ -319,6 +321,7 @@ namespace CloudMachine
                 else
                 {
                     MessageBox.Show("未能正确获取文档地址");
+                    BackHoem();
                 }
             }
             wpfPrint.PrintDocument(doc.GetFixedDocumentSequence().DocumentPaginator, "云文档打印");

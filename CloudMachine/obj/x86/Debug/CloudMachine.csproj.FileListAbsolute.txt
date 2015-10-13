@@ -414,7 +414,6 @@ D:\GitHub\ppprint\CloudMachine\bin\Debug\DreamPlatform.dll
 D:\GitHub\ppprint\CloudMachine\bin\Debug\GifImageLib.dll
 D:\GitHub\ppprint\CloudMachine\bin\Debug\Gma.QrCodeNet.Encoding.dll
 D:\GitHub\ppprint\CloudMachine\bin\Debug\IntelliLock.Licensing.dll
-D:\GitHub\ppprint\CloudMachine\obj\x86\Debug\CloudMachine.csprojResolveAssemblyReference.cache
 D:\GitHub\ppprint\CloudMachine\obj\x86\Debug\MainWindow.baml
 D:\GitHub\ppprint\CloudMachine\obj\x86\Debug\PayWindow.baml
 D:\GitHub\ppprint\CloudMachine\obj\x86\Debug\ScanWindow.baml

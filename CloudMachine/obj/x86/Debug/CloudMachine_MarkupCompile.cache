@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Administrator\Desktop\ppPrint\CloudMachine\obj\x86\Debug\
+D:\GitHub\ppprint\CloudMachine\obj\x86\Debug\
 CloudMachine
 none
 false
 DEBUG;TRACE
-C:\Users\Administrator\Desktop\ppPrint\CloudMachine\App.xaml
+D:\GitHub\ppprint\CloudMachine\App.xaml
 51634427092
 87-2061563079
 21919720707
-27-1127851466
+27-1914211746
 MainWindow.xaml;PayWindow.xaml;ScanWindow.xaml;Themes\DocumentViewerStyle.xaml;Themes\ImageStyle.xaml;
 
 False

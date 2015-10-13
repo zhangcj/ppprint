@@ -398,6 +398,14 @@ namespace CloudMachine
             if (order != null)
             {
                 GlobalCodeBuilder.filePaht = FileHelper.FileDownload(order.data[0].order_id, order.data[0].file_url);
+
+                //取件成功
+                HttpAPIService.PickSuccessAPI(orderCode);
+                //报告订单获取成功
+                if (order.data.Count > 0)
+                {
+                    HttpAPIService.IsPickSuccessAPI(order.data[0].order_id);
+                }
             }
         }
 

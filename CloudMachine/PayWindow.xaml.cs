@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Printing;
 using System.Windows;
 using CloudMachine.Model.Global;
 using CloudMachine.Model.Helper;
@@ -22,6 +24,7 @@ namespace CloudMachine
     public partial class PayWindow : Window
     {
         private DispatcherTimer ShowTimer;
+        private static System.Windows.Xps.Packaging.XpsDocument doc = null;
         public PayWindow()
         {
             InitializeComponent();
@@ -147,7 +150,7 @@ namespace CloudMachine
                     string xpsName = strArr[strArr.Length - 1].Substring(0, strArr[strArr.Length - 1].IndexOf('.'));
                     string xpsfilename = AppDomain.CurrentDomain.BaseDirectory + string.Format(@"Docs\{0}.xps", xpsName);
                     string err = "";
-                    System.Windows.Xps.Packaging.XpsDocument doc = FileHelper.ConvertWordToXps(GlobalCodeBuilder.filePaht, xpsfilename, out err);
+                    doc = FileHelper.ConvertWordToXps(GlobalCodeBuilder.filePaht, xpsfilename, out err);
                     if (!string.IsNullOrWhiteSpace(err))
                     {
                         MessageBox.Show("doc is err:" +err);
@@ -285,40 +288,58 @@ namespace CloudMachine
             Thread printThread = new Thread(FinishPrint);
             printThread.IsBackground = true;
             printThread.Start();
-
-            ////初始化PrintDialog
-            //var printDialog = new PrintDialog();
-            ////选择一个打印机
-            //var selectedPrinter = new LocalPrintServer().DefaultPrintQueue;
-            ////设置打印机
-            //PrintTicket pt = new PrintTicket();
-            //pt.Duplexing = Duplexing.OneSided;//arg.Duplex;
-            //printDialog.PrintQueue = selectedPrinter;
-            //printDialog.PrintTicket = pt;
-            ////printDialog.PrintDocument(dvcontent.Document.DocumentPaginator, "");
-
-            //FinishPrint();
         }
 
         //完成打印
         private void FinishPrint()
         {
-            //实例化打印对象
-            PrintDocument printDocument1 = new PrintDocument();
-            //设置打印用的纸张,当设置为Custom的时候，可以自定义纸张的大小
-            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custum", 500, 500);
-            //注册PrintPage事件，打印每一页时会触发该事件
-            printDocument1.PrintPage += new PrintPageEventHandler(this.PrintDocument_PrintPage);
-            printDocument1.PrintController = new StandardPrintController();
-            //开始打印
-            printDocument1.Print();
+            var printers = new LocalPrintServer().GetPrintQueues();
+            var selectedPrinter = printers.FirstOrDefault(p => p.Name == Global.A4PrinterName);
+            var wpfPrint = new PrintDialog();
+            wpfPrint.PrintQueue = selectedPrinter;
+            var pt = new PrintTicket();
+            pt.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4); //设置文档打印尺寸
+
+            wpfPrint.PrintTicket = pt;
+            if (doc == null)
+            {
+                if (!string.IsNullOrWhiteSpace(GlobalCodeBuilder.filePaht))
+                {
+                    string[] strArr = GlobalCodeBuilder.filePaht.Split('\\');
+                    string xpsName = strArr[strArr.Length - 1].Substring(0, strArr[strArr.Length - 1].IndexOf('.'));
+                    string xpsfilename = AppDomain.CurrentDomain.BaseDirectory +
+                                         string.Format(@"Docs\{0}-temp.xps", xpsName);
+                    string err = "";
+                    doc = FileHelper.ConvertWordToXps(GlobalCodeBuilder.filePaht, xpsfilename, out err);
+                    if (!string.IsNullOrWhiteSpace(err))
+                    {
+                        MessageBox.Show("doc is err:" + err);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("未能正确获取文档地址");
+                }
+            }
+            wpfPrint.PrintDocument(doc.GetFixedDocumentSequence().DocumentPaginator, "云文档打印");
+
+            if (doc != null)
+            {
+                dvcontent.Visibility = Visibility.Visible;
+                dvcontent.Document = doc.GetFixedDocumentSequence();
+                doc.Close();
+            }
 
             Thread.Sleep(1000);
             if (!string.IsNullOrWhiteSpace(GlobalCodeBuilder.filePaht))
             {
                 FileHelper.DeleteFile(GlobalCodeBuilder.filePaht);
-                string xpsFile = GlobalCodeBuilder.filePaht.Substring(0, GlobalCodeBuilder.filePaht.LastIndexOf('.')) + ".xps";
+                string xpsFile = GlobalCodeBuilder.filePaht.Substring(0, GlobalCodeBuilder.filePaht.LastIndexOf('.')) +
+                                 ".xps";
                 FileHelper.DeleteFile(xpsFile);
+                string xpsTempFile = GlobalCodeBuilder.filePaht.Substring(0, GlobalCodeBuilder.filePaht.LastIndexOf('.')) +
+                                 "-temp.xps";
+                FileHelper.DeleteFile(xpsTempFile);
             }
             GlobalCodeBuilder.filePaht = "";
             new Thread(() =>
@@ -337,26 +358,6 @@ namespace CloudMachine
                     printThread.Start();
                 }));
             }).Start();
-        }
-
-        /// <summary>
-        /// 打印
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PrintDocument_PrintPage(object sender,PrintPageEventArgs e)
-        {
-            try
-            {
-                //获取待打内容
-                string content = FileHelper.GetFileContent(GlobalCodeBuilder.filePaht);
-                //设置打印内容及其字体，颜色和位置  new System.Drawing.Font(new System.Drawing.FontFamily("黑体"), 24)
-                e.Graphics.DrawString(content, new System.Drawing.Font(new System.Drawing.FontFamily("Tahoma"), 11), System.Drawing.Brushes.Red, 50, 50);
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
 
         //回到首页

@@ -77,5 +77,35 @@ namespace CloudMachine.Service
             };
             string jsonResult = HttpHelper.Get(apiUrl, HttpHelper.CreateParameter(parameter), new NameValueCollection(), Encoding.UTF8);
         }
+
+        /// <summary>
+        /// 取件成功状态报告
+        /// </summary>
+        /// <param name="snCode"></param>
+        public static void PickSuccessAPI(string snCode)
+        {
+            string apiUrl = ConfigurationManager.AppSettings["PickSuccessAPI"];
+
+            var parameter = new SortedDictionary<string, string>
+            {
+                {"sn",snCode}
+            };
+            string jsonResult = HttpHelper.Get(apiUrl, HttpHelper.CreateParameter(parameter), new NameValueCollection(), Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 是否取件成功状态报告
+        /// </summary>
+        /// <param name="snCode"></param>
+        public static void IsPickSuccessAPI(string orderId)
+        {
+            string apiUrl = ConfigurationManager.AppSettings["IsPickSuccessAPI"];
+
+            var parameter = new SortedDictionary<string, string>
+            {
+                {"order_id",orderId}
+            };
+            string jsonResult = HttpHelper.Get(apiUrl, HttpHelper.CreateParameter(parameter), new NameValueCollection(), Encoding.UTF8);
+        }
     }
 }
